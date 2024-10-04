@@ -1,21 +1,45 @@
 pipeline {
-    agent any
+    agent any  // Use any available Jenkins agent
+
+    environment {
+        APP_NAME = "MyApp"  // Define an environment variable
+    }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
+                echo "Building the application: ${APP_NAME}"
+                // Simulate build command
+                sh 'echo "Build completed for ${APP_NAME}"'
             }
         }
+
         stage('Test') {
             steps {
-                echo 'Testing the project...'
+                echo "Testing the application: ${APP_NAME}"
+                // Simulate test command
+                sh 'echo "Tests passed for ${APP_NAME}"'
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying the project...'
+                echo "Deploying the application: ${APP_NAME}"
+                // Simulate deploy command
+                sh 'echo "Deployment completed for ${APP_NAME}"'
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning up resources after pipeline execution."
+        }
+        success {
+            echo "Pipeline completed successfully for ${APP_NAME}!"
+        }
+        failure {
+            echo "Pipeline failed for ${APP_NAME}. Please check the logs!"
         }
     }
 }
